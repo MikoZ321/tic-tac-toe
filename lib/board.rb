@@ -7,4 +7,16 @@ class Board
   def to_s
     @grid.to_s
   end
+
+  def place_marker(marker, target_index)
+    row_index = target_index / 3
+    column_index = target_index % 3
+    @grid[row_index][column_index] = marker
+  end
+
+  def valid_move?(move)
+    return false unless move.between?(1, 9) && @grid.flatten[move - 1].nil?
+
+    true
+  end
 end

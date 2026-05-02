@@ -14,6 +14,7 @@ class Game
 
   def play_round
     prompt_input
+    @board.place_marker(PLAYER_MARKERS[@turn % 2], @input - 1)
     puts self
     @turn += 1
   end
@@ -27,10 +28,11 @@ class Game
 
   def valid_input?(user_input)
     user_input_int = user_input.to_i
-    return true if user_input_int.between?(1, 9)
+    # No need to check for type, as erroneous input converts to 0
+    return true if @board.valid_move?(user_input_int)
 
     # Doesn't display the hint before the first invalid input
-    puts "Field number must be between 1 and 9." unless user_input.nil?
+    puts "Field number must be between 1 and 9 and cannot already be occupied." unless user_input.nil?
     false
   end
 
