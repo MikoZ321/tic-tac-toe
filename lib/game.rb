@@ -7,6 +7,11 @@ class Game
     @board = Board.new
   end
 
+  # TODO: add second finish condition
+  def finished?
+    @turn > 9
+  end
+
   def play_round
     prompt_input
     puts self
