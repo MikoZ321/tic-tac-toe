@@ -1,4 +1,5 @@
-require_relative 'lib/game'
-require_relative 'lib/board'
+require_relative "lib/game"
+require_relative "lib/board"
 
-game = Game.new()
+game = Game.new
+game.play_round
