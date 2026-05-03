@@ -23,8 +23,7 @@ class Board
   end
 
   def won?
-    # TODO: add diagonal win conditions
-    win_conditions = [won_by_row?, won_by_column?]
+    win_conditions = [won_by_row?, won_by_column?, won_by_diagonal?]
     win_conditions.any?
   end
 
@@ -35,9 +34,23 @@ class Board
     won_by_row?(transposed_grid)
   end
 
+  def won_by_diagonal?
+    first_diagonal = @grid.map.with_index { |row, row_index| row[row_index] }
+    second_diagonal = @grid.map.with_index { |row, row_index| row[-(row_index + 1)] }
+
+    won_by_element?(first_diagonal) || won_by_element?(second_diagonal)
+  end
+
+  def won_by_element?(element)
+    # Takes in an array, representing an element (row, column or diagonal) and returns whether it is a win condition
+    return false if element[0].nil?
+
+    element.all?(element[0])
+  end
+
   def won_by_row?(assessed_grid = @grid)
     assessed_grid.any? do |row|
-      !row[0].nil? && row.all?(row[0])
+      won_by_element?(row)
     end
   end
 end
