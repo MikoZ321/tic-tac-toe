@@ -8,10 +8,15 @@ class Game
   end
 
   def finished?
+    puts "Player #{PLAYER_MARKERS[(@turn - 1) % 2]} has won." if @board.won?
+    puts "The game ended in a tie." if @turn > 9
+
     @turn > 9 || @board.won?
   end
 
   def play_round
+    # Print initial empty board without round number
+    puts @board if @turn == 1
     prompt_input
     @board.place_marker(PLAYER_MARKERS[@turn % 2], @input - 1)
     puts self
