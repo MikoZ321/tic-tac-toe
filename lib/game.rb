@@ -7,9 +7,8 @@ class Game
     @board = Board.new
   end
 
-  # TODO: add second finish condition
   def finished?
-    @turn > 9
+    @turn > 9 || @board.won?
   end
 
   def play_round
