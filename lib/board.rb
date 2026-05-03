@@ -7,7 +7,13 @@ class Board
   end
 
   def to_s
-    @grid.to_s
+    @grid.each.with_index.reduce("") do |output_string, (row, row_index)|
+      output_string += if row_index.zero? then top_row_to_s
+                       elsif row_index == SIDE_LENGTH - 1 then bottom_row_to_s
+                       else middle_row_to_s(row)
+                       end
+      "#{output_string}\n"
+    end
   end
 
   def place_marker(marker, target_index)
@@ -28,6 +34,20 @@ class Board
   end
 
   private
+
+  def bottom_row_to_s
+    row = @grid[-1]
+    row.to_s
+  end
+
+  def middle_row_to_s(row)
+    row.to_s
+  end
+
+  def top_row_to_s
+    row = @grid[0]
+    row.to_s
+  end
 
   def won_by_column?
     transposed_grid = @grid.transpose

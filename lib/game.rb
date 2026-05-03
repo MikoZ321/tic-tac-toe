@@ -19,8 +19,7 @@ class Game
   end
 
   def to_s
-    puts "Round #{@turn}"
-    @board.to_s
+    "Round #{@turn}: \n#{@board}"
   end
 
   private
@@ -37,8 +36,9 @@ class Game
 
   def prompt_input
     user_input = nil
+    current_player_marker = PLAYER_MARKERS[@turn % 2]
     until valid_input?(user_input)
-      puts "Enter the number of the field, in which you wish to place a marker: "
+      puts "Player #{current_player_marker}, enter the number of the field, in which you wish to place a marker: "
       user_input = gets.chomp
     end
     @input = user_input.to_i
